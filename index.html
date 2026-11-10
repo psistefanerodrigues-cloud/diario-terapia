@@ -32,6 +32,7 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{background:var(--creme);color:var(--tinta);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
@@ -65,9 +66,9 @@ h2{font-family:var(--display);font-weight:400;font-variation-settings:"opsz" 30;
 .card .sub{font-size:14px;color:var(--cinza);margin:4px 0 0}
 
 /* Humor */
-.carinhas{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:14px}
-.carinha{background:none;border:1.5px solid transparent;border-radius:14px;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;color:var(--cinza);transition:background .15s,border-color .15s}
-.carinha svg{width:44px;height:44px}
+.carinhas{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin-top:14px}
+.carinha{min-width:0;overflow:hidden;text-align:center;line-height:1.2;overflow-wrap:anywhere;background:none;border:1.5px solid transparent;border-radius:14px;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;color:var(--cinza);transition:background .15s,border-color .15s}
+.carinha svg{width:100%;max-width:44px;height:auto;aspect-ratio:1}
 .carinha[aria-pressed="true"]{background:var(--creme);border-color:var(--ocre);color:var(--vinho);font-weight:600}
 .carinha[aria-pressed="true"] .rosto{fill:var(--ocre);stroke:var(--ocre)}
 .carinha:hover .rosto{stroke:var(--ocre)}
@@ -236,6 +237,30 @@ header.top h1{margin-top:4px}
 .nota .acoes button{background:none;border:1px solid var(--linha);border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:500;color:var(--vinho)}
 .erro{color:#A8472C;font-size:14px;margin:10px 0 0;text-align:center}
 .codigo{font-family:var(--display);font-size:40px;letter-spacing:.18em;color:var(--vinho);background:var(--creme);border:1px dashed var(--ocre);border-radius:14px;text-align:center;padding:10px;margin-top:8px}
+.aviso-app{background:#F1D6CC;border:1px solid #A8472C;color:#5a2416;border-radius:14px;padding:12px 14px;font-size:14px;margin-bottom:14px;line-height:1.5}
+.aviso-app b:first-child{display:block;margin-bottom:4px}
+@media (max-width:370px){
+  .app{padding:0 12px 10px} header.top{margin:0 -12px} .card{padding:15px} .carinha{font-size:10.5px}
+  h1, header.top h1{font-size:32px} .resumo b{font-size:22px} .semana{gap:4px}
+}
+.card,.item .txt,.meta-titulo,.nota{min-width:0}
+.instalar ol{margin:8px 0 0;padding-left:20px;font-size:14px;color:var(--cinza)}
+.instalar li{margin:4px 0}
+.roda{width:100%;max-width:380px;display:block;margin:10px auto 0}
+.roda text{font-family:var(--body);font-size:13px;fill:var(--cinza)}
+.roda-comp{display:flex;align-items:center;gap:8px;justify-content:center;font-size:13px;color:var(--cinza);margin-top:4px}
+.roda-comp select{border:1px solid var(--linha);background:var(--creme);border-radius:10px;padding:6px 8px;font:inherit;color:var(--tinta)}
+.roda-sliders{display:grid;gap:10px;margin-top:14px}
+.roda-linha{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;align-items:center}
+.roda-linha label{font-size:14px;font-weight:500;overflow-wrap:anywhere}
+.roda-linha .val{font-family:var(--display);font-size:20px;color:var(--vinho);min-width:26px;text-align:right;font-variant-numeric:tabular-nums}
+.roda-linha input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--vinho-claro)}
+.roda-linha .tira{grid-column:2;grid-row:1}
+.roda-baixa{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--linha);padding:10px 0;font-size:14px}
+.menu-wa{display:block;text-decoration:none;text-align:left;background:var(--vinho);border-radius:16px;padding:14px 16px}
+.menu-wa b{display:block;font-family:var(--display);font-weight:400;font-size:20px;color:var(--creme)}
+.menu-wa span{font-size:13.5px;color:rgba(242,234,224,.75)}
+.termo a{color:var(--vinho-claro);font-weight:600}
 .toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%);background:var(--tinta);color:#fff;padding:9px 16px;border-radius:999px;font-size:14px;z-index:9;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){*{transition:none !important}}
@@ -254,6 +279,10 @@ header.top h1{margin-top:4px}
     <p class="por">Stefane Rodrigues · Psicóloga · CRP 05/73756</p>
     <p class="intro">Um espaço pra registrar como você está, anotar o que quer levar pra sessão e acompanhar suas metas.</p>
 
+    <div class="aviso-app" id="avisoApp" hidden>
+      <b>Abra no navegador do celular</b>
+      Você abriu o diário por dentro de outro aplicativo (como WhatsApp ou Instagram), e o Google não permite entrar por aí. Toque nos três pontinhos ou no ícone de compartilhar e escolha <b>Abrir no Chrome</b> ou <b>Abrir no Safari</b>. Se preferir, entre com e-mail e senha logo abaixo.
+    </div>
     <button class="btn btn-google" id="entrarGoogle" type="button">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.5-.2-2.2H12v4.2h5.9c-.3 1.4-1 2.5-2.2 3.3v2.7h3.6c2-1.9 3.2-4.7 3.2-8z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.6-2.7c-1 .7-2.2 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.5H2.1v2.8C3.9 20.6 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.8 14.2c-.2-.7-.4-1.4-.4-2.2s.1-1.5.4-2.2V7H2.1C1.4 8.5 1 10.2 1 12s.4 3.5 1.1 5l3.7-2.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2C17.5 2.1 15 1 12 1 7.7 1 3.9 3.4 2.1 7l3.7 2.8c.9-2.6 3.3-4.4 6.2-4.4z"/></svg>
       Entrar com Google
@@ -284,12 +313,14 @@ header.top h1{margin-top:4px}
     <h1 style="margin-top:18px">Antes de <em>começar</em></h1>
     <p class="intro" style="margin-bottom:0">Leia como seus dados são cuidados. Você pode apagar tudo quando quiser.</p>
     <div class="termo" tabindex="0" aria-label="Termo de consentimento">
-      <p><b>Termo de consentimento (texto provisório)</b></p>
-      <p>Este diário é uma ferramenta de apoio ao seu processo terapêutico com a psicóloga Stefane Rodrigues (CRP 05/73756). Ele não substitui as sessões nem atendimento de urgência.</p>
-      <p>Os registros de humor, anotações e metas ficam guardados na sua conta, protegidos por login. Ninguém além de você tem acesso a eles, a menos que você mesmo decida enviar.</p>
-      <p>Seus dados ficam armazenados em servidores do Google (Firebase) localizados no Brasil, em São Paulo, de acordo com a Lei Geral de Proteção de Dados (LGPD).</p>
-      <p>Você pode apagar todos os seus dados a qualquer momento, na aba Mais.</p>
-      <p>Em caso de crise ou risco, procure o CVV (ligue 188) ou o serviço de emergência mais próximo.</p>
+      <p><b>Termo de consentimento e uso</b></p>
+      <p>Este diário é uma ferramenta de apoio ao seu processo terapêutico com a psicóloga Stefane Rodrigues (CRP 05/73756). Ele não substitui as sessões nem o atendimento em situações de urgência.</p>
+      <p>O que você registra aqui fica guardado na sua conta, protegido por login. Isso inclui seu humor, suas anotações, suas metas e seu cadastro. Ninguém acessa esses registros pelo aplicativo além de você. Você escolhe o que quer compartilhar com a sua psicóloga.</p>
+      <p>Como responsável pelo sistema, a psicóloga tem acesso técnico ao banco de dados. Ela se compromete a não consultar seus registros sem o seu pedido e a manter o sigilo previsto no Código de Ética Profissional do Psicólogo.</p>
+      <p>Se você faz terapia de casal e conecta sua conta à do seu par, os combinados e metas do casal ficam visíveis para os dois. Seu humor, suas anotações e seu bloco de notas continuam individuais.</p>
+      <p>Os dados ficam armazenados em servidores do Google (Firebase) localizados no Brasil, em São Paulo, de acordo com a Lei Geral de Proteção de Dados (LGPD). Você pode editar ou apagar seus registros quando quiser e excluir sua conta a qualquer momento na aba Mais.</p>
+      <p>Estou à sua disposição para conversar sobre qualquer dúvida ou necessidade. Se precisar, fale comigo pelo WhatsApp <a href="https://wa.me/5521981673673" target="_blank" rel="noopener">(21) 98167-3673</a>.</p>
+      <p>Em situação de crise, você pode entrar em contato comigo. Se eu não estiver disponível no momento, ligue para o CVV (188) ou para o SAMU (192), ou procure o serviço de emergência mais próximo.</p>
     </div>
     <label class="aceite"><input type="checkbox" id="aceito"> <span>Li e concordo com o termo de consentimento.</span></label>
     <button class="btn cheio" id="comecar" type="button" disabled style="width:100%;justify-content:center;margin-top:16px">Continuar</button>
@@ -440,6 +471,31 @@ header.top h1{margin-top:4px}
 
   <!-- METAS -->
   <section id="v-metas" data-view hidden>
+    <div class="card" id="rodaCard">
+      <h2>Roda da vida</h2>
+      <p class="sub">Dê uma nota de 0 a 10 pra como você está hoje em cada área. Não é pra ser perfeita, é pra ser sincera.</p>
+      <svg id="roda" class="roda" viewBox="-44 -8 428 356" role="img" aria-label="Sua roda da vida"></svg>
+      <div class="roda-comp" id="rodaCompBox" hidden>
+        <label for="rodaHist">Comparar com</label>
+        <select id="rodaHist"></select>
+      </div>
+      <div id="rodaSliders" class="roda-sliders"></div>
+      <form id="formArea" class="add" hidden>
+        <input type="text" id="novaArea" placeholder="Nova área, ex.: Estudos" aria-label="Nova área da vida" maxlength="30">
+        <button class="btn sec" type="submit">Adicionar</button>
+      </form>
+      <div class="linha-acoes">
+        <button class="btn" id="salvarRoda" type="button">Salvar minha roda</button>
+        <button class="btn sec peq" id="editarAreas" type="button" aria-pressed="false">Editar áreas</button>
+      </div>
+      <p class="sub" id="rodaInfo"></p>
+      <div id="rodaBaixas"></div>
+    </div>
+    <details class="porque" data-porque="roda" open>
+      <summary>Pra que serve a roda da vida?</summary>
+      <p>Às vezes a gente sente que está tudo pesado, mas não sabe dizer onde. A roda ajuda a olhar cada área separadamente e perceber onde está o desequilíbrio.</p>
+      <p>Uma roda com notas muito diferentes entre si gira torto. Isso não é um problema a ser escondido. É uma pista sobre onde vale colocar energia agora. Refaça de tempos em tempos e compare com as anteriores. Dá pra ver o caminho que você está fazendo.</p>
+    </details>
     <details class="porque" data-porque="metas" open>
       <summary>Pra que servem as metas?</summary>
       <p>As metas lembram pra onde você quer ir com a terapia. Elas nascem das nossas conversas e podem mudar ao longo do caminho, porque você também muda.</p>
@@ -464,9 +520,9 @@ header.top h1{margin-top:4px}
     </div>
     <div class="card" id="conectarCard">
       <h2>Conectar com seu amor</h2>
-      <p class="sub">Pra vocês verem os mesmos combinados e metas, as contas precisam estar conectadas. Um de vocês cria o convite e o outro digita o código no próprio celular.</p>
+      <p class="sub">Pra vocês verem os mesmos combinados e metas, as contas precisam estar conectadas. Um de vocês gera um código e manda pro outro, que digita o código no próprio celular.</p>
       <div id="semConvite">
-        <div class="linha-acoes"><button class="btn" id="criarConvite" type="button">Criar convite</button></div>
+        <div class="linha-acoes"><button class="btn" id="criarConvite" type="button">Gerar meu código</button></div>
         <p class="titulo-sec">Recebeu um código?</p>
         <form class="add" id="formEntrarCasal">
           <input type="text" id="codigoCasal" placeholder="Digite o código" maxlength="6" autocapitalize="characters" autocomplete="off" aria-label="Código do convite" style="text-transform:uppercase;letter-spacing:.2em">
@@ -477,8 +533,8 @@ header.top h1{margin-top:4px}
       <div id="comConvite" hidden>
         <p class="titulo-sec">Seu código</p>
         <div class="codigo" id="codigoMostrado"></div>
-        <p class="sub" style="margin-top:8px">Manda esse código pro seu amor. Quando ele(a) entrar no diário e digitar o código na aba Casal, vocês ficam conectados.</p>
-        <div class="linha-acoes"><a class="btn" id="enviarCodigo" href="#" target="_blank" rel="noopener">Enviar pelo WhatsApp</a><button class="btn sec peq" id="copiarCodigo" type="button">Copiar código</button></div>
+        <p class="sub" style="margin-top:8px">Manda esse código pro seu amor. Ele(a) entra no diário, vai na aba Casal e digita o código em "Recebeu um código?". Pronto, vocês ficam conectados.</p>
+        <div class="linha-acoes"><a class="btn" id="enviarCodigo" href="#" target="_blank" rel="noopener">Enviar código pelo WhatsApp</a><button class="btn sec peq" id="copiarCodigo" type="button">Copiar código</button></div>
       </div>
     </div>
     <div class="card">
@@ -552,6 +608,15 @@ header.top h1{margin-top:4px}
       <p id="textoPag">Um aviso na agenda pra você não esquecer do pagamento.</p>
       <div class="linha-acoes"><a class="btn" id="linkPag" href="#" target="_blank" rel="noopener">Criar lembrete de pagamento</a></div>
     </div>
+    <div class="card opcao instalar">
+      <h2>Ter o diário como app</h2>
+      <p>Coloque o diário na tela inicial do celular. Ele abre em tela cheia, com o ícone do caderninho, igual a um aplicativo.</p>
+      <div class="linha-acoes" id="boxInstalar" hidden><button class="btn" id="botaoInstalar" type="button">Instalar no celular</button></div>
+      <p class="titulo-sec">No Android (Chrome)</p>
+      <ol><li>Toque nos três pontinhos, no canto de cima.</li><li>Escolha <b>Adicionar à tela inicial</b> ou <b>Instalar app</b>.</li></ol>
+      <p class="titulo-sec">No iPhone (Safari)</p>
+      <ol><li>Abra o diário pelo <b>Safari</b>.</li><li>Toque no botão de compartilhar, o quadrado com a setinha pra cima.</li><li>Escolha <b>Adicionar à Tela de Início</b>.</li></ol>
+    </div>
     <div class="card opcao">
       <h2>Lembrete diário</h2>
       <p>Escolha um horário. O lembrete vai pra agenda do seu celular e se repete todo dia.</p>
@@ -572,6 +637,11 @@ header.top h1{margin-top:4px}
       </div>
     </div>
     <div class="card opcao">
+      <h2>Sua psicóloga</h2>
+      <p>Stefane Rodrigues · CRP 05/73756. Pra remarcar, tirar dúvidas ou em caso de necessidade, fale comigo pelo WhatsApp.</p>
+      <div class="linha-acoes"><a class="btn" href="https://wa.me/5521981673673" target="_blank" rel="noopener">Falar com a Stefane</a></div>
+    </div>
+    <div class="card opcao">
       <h2>Sua conta</h2>
       <p id="contaEmail">Conectado como paciente@exemplo.com</p>
       <div class="linha-acoes"><button class="btn sec peq" id="sair" type="button">Sair</button><button class="btn sec peq" id="excluirConta" type="button">Excluir minha conta</button></div>
@@ -583,7 +653,7 @@ header.top h1{margin-top:4px}
   </section>
 </div>
 
-<footer class="assinatura app" style="padding-bottom:100px;min-height:0">Stefane Rodrigues · Psicóloga clínica · Mestre em Psicologia Social<br>Terapeuta de casais e família · CRP 05/73756<br>Este diário apoia a terapia e não substitui o atendimento.</footer>
+<footer class="assinatura app" style="padding-bottom:100px;min-height:0">Stefane Rodrigues · Psicóloga clínica · Mestre em Psicologia Social<br>Terapeuta de casais e família · CRP 05/73756<br>© <span class="ano"></span> Stefane Rodrigues. Todos os direitos reservados.</footer>
 <nav class="abas" aria-label="Seções">
   <div class="in">
     <button data-go="hoje" aria-current="page"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8"/><path d="M9 9.5h.01M15 9.5h.01"/></svg>Hoje</button>
@@ -602,6 +672,7 @@ header.top h1{margin-top:4px}
     <button data-menu="metas"><b>Minhas metas</b><span>Objetivos e pequenos passos</span></button>
     <button data-menu="casal" id="menuCasal"><b>Casal</b><span>Combinados e metas de vocês</span></button>
     <button data-menu="mais"><b>Lembretes e cadastro</b><span>Sessão, pagamento e seus dados</span></button>
+    <a class="menu-wa" href="https://wa.me/5521981673673" target="_blank" rel="noopener"><b>Falar com a Stefane</b><span>WhatsApp (21) 98167-3673</span></a>
   </nav>
   <p class="assinatura" style="margin-top:auto">Stefane Rodrigues · Psicóloga · CRP 05/73756</p>
 </div>
@@ -631,7 +702,8 @@ const FV = firebase.firestore.FieldValue;
 const CHAVE = "diario-terapia-v1";
 
 let uid = null, coupleId = null, casalInfo = null, pararCasal = null, tSalvar = null;
-const novoD = () => ({humor:{}, notas:[], metas:[], bloco:[], casal:{par:"", combinados:[], metas:[]}});
+const AREAS_PADRAO=["Saúde","Trabalho","Finanças","Vida amorosa","Família","Amizades","Lazer","Espiritualidade e desenvolvimento pessoal"];
+const novoD = () => ({humor:{}, notas:[], metas:[], bloco:[], roda:{areas:[...AREAS_PADRAO], registros:[]}, casal:{par:"", combinados:[], metas:[]}});
 
 function salvar(){ if(!uid) return; clearTimeout(tSalvar); tSalvar = setTimeout(gravar, 600); }
 async function gravar(){
@@ -796,7 +868,7 @@ function renderNotas(){
   const p=D.notas.filter(n=>!n.feito), f=D.notas.filter(n=>n.feito);
   $("#notasPendentes").innerHTML = p.length ? p.map(itemNota).join("") : `<p class="vazio">Nada pendente. Quando lembrar de algo, anota aqui.</p>`;
   $("#notasFeitas").innerHTML = f.length ? f.map(itemNota).join("") : `<p class="vazio">O que você marcar aparece aqui.</p>`;
-  $("#enviarNotas").href = "https://wa.me/?text=" + encodeURIComponent(textoNotas());
+  $("#enviarNotas").href = "https://wa.me/5521981673673?text=" + encodeURIComponent(textoNotas());
   document.querySelectorAll("[data-nota]").forEach(b=>b.addEventListener("click",()=>{ sairDoDemoKeep(); const n=D.notas.find(x=>x.id===b.dataset.nota); if(n){n.feito=!n.feito; salvar(); renderNotas();} }));
   document.querySelectorAll("[data-apaga-nota]").forEach(b=>b.addEventListener("click",()=>{ D.notas=D.notas.filter(x=>x.id!==b.dataset.apagaNota); salvar(); renderNotas(); }));
 }
@@ -862,7 +934,7 @@ function renderCasal(){
   $("#comConvite").hidden = !coupleId || conectado;
   if(coupleId && !conectado){
     $("#codigoMostrado").textContent = coupleId;
-    $("#enviarCodigo").href = "https://wa.me/?text="+encodeURIComponent(`Amor, entra no Meu diário da terapia (${location.origin}) e, na aba Casal, digita este código pra gente conectar: ${coupleId}`);
+    $("#enviarCodigo").href = "https://wa.me/?text="+encodeURIComponent(`Nosso código no Meu diário da terapia: ${coupleId}`);
   }
   $("#parTexto").textContent = conectado ? "Combinados e metas desta aba aparecem pros dois. Seu humor e suas anotações continuam só seus." : "Enquanto vocês não conectam, o que você criar aqui fica só com você. Quando conectarem, passa a aparecer pros dois.";
   const av=$(".avatares").children; av[0].textContent=(P.apelido||"V")[0].toUpperCase(); av[1].textContent=(D.casal.par||"A")[0].toUpperCase();
@@ -985,6 +1057,12 @@ $("#trocarModo").addEventListener("click",()=>{
   $("#senha").autocomplete = criando ? "new-password" : "current-password";
 });
 
+let pedidoInstalar=null;
+window.addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); pedidoInstalar=e; $("#boxInstalar").hidden=false; });
+$("#botaoInstalar").addEventListener("click",async ()=>{ if(!pedidoInstalar) return; pedidoInstalar.prompt(); await pedidoInstalar.userChoice; pedidoInstalar=null; $("#boxInstalar").hidden=true; });
+document.querySelectorAll(".ano").forEach(e=>e.textContent=new Date().getFullYear());
+const NO_APP = /FBAN|FBAV|FB_IAB|Instagram|WhatsApp|Line\/|TikTok|musical_ly|Bytedance|; wv\)/i.test(navigator.userAgent);
+if(NO_APP) $("#avisoApp").hidden=false;
 auth.onAuthStateChanged(async user=>{
   if(pararCasal){ pararCasal(); pararCasal=null; }
   if(!user){ uid=null; coupleId=null; casalInfo=null; D=novoD(); P={}; renderTudo(); mostrarPasso("passoEntrar"); return; }
@@ -1000,7 +1078,7 @@ auth.onAuthStateChanged(async user=>{
   }catch(e){ console.error(e); D=novoD(); P={}; }
   coupleId = P.coupleId || null;
   if(coupleId) ouvirCasal();
-  sincronizarHoje(); preencherPerfil(); renderTudo();
+  rodaAtual=null; sincronizarHoje(); preencherPerfil(); renderTudo();
   if(!P.aceiteEm || !P.apelido) mostrarTermo(); else entrarNoApp();
 });
 
@@ -1173,7 +1251,74 @@ function renderBloco(){
   document.querySelectorAll("[data-levar]").forEach(b=>b.addEventListener("click",()=>{ const n=l.find(x=>x.id===b.dataset.levar); if(!n) return; const t=n.titulo || (n.texto.length>70? n.texto.slice(0,70)+"…" : n.texto); D.notas.unshift({id:novoId(), txt:t, feito:false, em:hoje()}); salvar(); renderNotas(); toast("Adicionado ao que levar pra sessão"); }));
   document.querySelectorAll("[data-apaga-bloco]").forEach(b=>b.addEventListener("click",()=>{ if(b.dataset.confirma!=="1"){ b.dataset.confirma="1"; b.textContent="Toque de novo pra apagar"; return; } D.bloco=l.filter(x=>x.id!==b.dataset.apagaBloco); salvar(); renderBloco(); }));
 }
-function renderTudo(){ renderBloco(); $("#avisoDemo").hidden = !D.demo; renderCarinhas(); renderGrafico(); renderNotas(); renderMetas(); renderCasal(); mostrarAbaCasal(); }
+/* ---------- Roda da vida ---------- */
+let rodaAtual=null, editandoAreas=false;
+function rodaDados(){ if(!D.roda) D.roda={areas:[...AREAS_PADRAO], registros:[]}; if(!D.roda.areas) D.roda.areas=[...AREAS_PADRAO]; if(!D.roda.registros) D.roda.registros=[]; return D.roda; }
+function iniciarRodaAtual(){
+  const r=rodaDados(), ult=r.registros[r.registros.length-1];
+  rodaAtual={}; r.areas.forEach(a=>rodaAtual[a]= ult && ult.notas[a]!=null ? ult.notas[a] : 5);
+}
+function quebrar(txt,max=14){ const ws=[]; txt.split(" ").forEach(w=>{ if(ws.length && ws[ws.length-1].length<=2) ws[ws.length-1]+=" "+w; else ws.push(w); }); const ls=[]; let l=""; ws.forEach(w=>{ if((l+" "+w).trim().length>max && l){ ls.push(l); l=w; } else l=(l+" "+w).trim(); }); if(l) ls.push(l); return ls.slice(0,3); }
+function desenharRoda(){
+  const r=rodaDados(), areas=r.areas, n=areas.length, C=170, R0=112;
+  const comp = $("#rodaHist").value!=="" ? r.registros[+$("#rodaHist").value] : null;
+  const ang=i=> -Math.PI/2 + i*2*Math.PI/n;
+  const pt=(a,rad)=>[C+rad*Math.cos(a), C+rad*Math.sin(a)];
+  const fatia=(i,rad)=>{ if(rad<=0) return ""; const a0=ang(i), a1=ang(i+1), [x0,y0]=pt(a0,rad), [x1,y1]=pt(a1,rad); return `M${C},${C} L${x0.toFixed(1)},${y0.toFixed(1)} A${rad},${rad} 0 ${n<=2?1:0} 1 ${x1.toFixed(1)},${y1.toFixed(1)} Z`; };
+  let s="";
+  areas.forEach((a,i)=>{ s+=`<path d="${fatia(i,R0)}" fill="${i%2?"#EFE5D9":"#E7DACC"}" stroke="#FBF7F1" stroke-width="1.5"/>`; });
+  [2,4,6,8].forEach(v=>{ s+=`<circle cx="${C}" cy="${C}" r="${R0*v/10}" fill="none" stroke="#FBF7F1" stroke-width="1" opacity=".9"/>`; });
+  areas.forEach((a,i)=>{ const v=rodaAtual[a]??0; s+=`<path d="${fatia(i,R0*v/10)}" fill="#A8472C" opacity="${.45+v*.045}" stroke="#FBF7F1" stroke-width="1.5"/>`; });
+  if(comp) areas.forEach((a,i)=>{ const v=comp.notas[a]; if(v!=null) s+=`<path d="${fatia(i,R0*v/10)}" fill="none" stroke="#2C1216" stroke-width="1.6" stroke-dasharray="4 3"/>`; });
+  areas.forEach((a,i)=>{
+    const am=(ang(i)+ang(i+1))/2, [x,y]=pt(am,R0+16), cos=Math.cos(am);
+    const anchor = Math.abs(cos)<.25 ? "middle" : cos>0 ? "start" : "end";
+    const ls=quebrar(a), y0=y-(ls.length-1)*6.5 + (Math.sin(am)>.5?6:Math.sin(am)<-.5?-4:3);
+    s+=`<text x="${x.toFixed(1)}" y="${y0.toFixed(1)}" text-anchor="${anchor}">${ls.map((l,k)=>`<tspan x="${x.toFixed(1)}" dy="${k?15:0}">${esc(l)}</tspan>`).join("")}</text>`;
+  });
+  $("#roda").innerHTML=s;
+}
+function renderRoda(){
+  const r=rodaDados(); if(!rodaAtual) iniciarRodaAtual();
+  r.areas.forEach(a=>{ if(rodaAtual[a]==null) rodaAtual[a]=5; });
+  const h=r.registros;
+  $("#rodaCompBox").hidden = !h.length;
+  const sel=$("#rodaHist").value;
+  $("#rodaHist").innerHTML = `<option value="">nenhuma</option>` + h.map((x,i)=>`<option value="${i}">${diaCurto(x.em)}${i===h.length-1?" (última)":""}</option>`).join("");
+  if(sel!=="" && +sel<h.length) $("#rodaHist").value=sel;
+  $("#rodaSliders").innerHTML = r.areas.map((a,i)=>`<div class="roda-linha">
+      <label for="ra-${i}">${esc(a)}</label>
+      ${editandoAreas ? `<button class="x tira" type="button" data-tira-area="${i}" aria-label="Remover ${esc(a)}">×</button>` : `<span class="val" id="rv-${i}">${rodaAtual[a]}</span>`}
+      <input type="range" id="ra-${i}" min="0" max="10" step="1" value="${rodaAtual[a]}" data-area="${i}" ${editandoAreas?"disabled":""}>
+    </div>`).join("");
+  document.querySelectorAll("[data-area]").forEach(inp=>inp.addEventListener("input",()=>{ const a=r.areas[+inp.dataset.area]; rodaAtual[a]=+inp.value; const v=$("#rv-"+inp.dataset.area); if(v) v.textContent=inp.value; desenharRoda(); }));
+  document.querySelectorAll("[data-tira-area]").forEach(b=>b.addEventListener("click",()=>{ if(r.areas.length<=3){ toast("A roda precisa de pelo menos 3 áreas"); return; } const a=r.areas[+b.dataset.tiraArea]; r.areas.splice(+b.dataset.tiraArea,1); delete rodaAtual[a]; salvar(); renderRoda(); }));
+  $("#formArea").hidden=!editandoAreas;
+  $("#editarAreas").textContent = editandoAreas ? "Pronto" : "Editar áreas";
+  $("#editarAreas").setAttribute("aria-pressed", editandoAreas);
+  $("#salvarRoda").hidden = editandoAreas;
+  const ult=h[h.length-1];
+  $("#rodaInfo").textContent = ult ? `Última roda salva em ${diaCurto(ult.em)}. Você tem ${h.length} ${h.length===1?"roda salva":"rodas salvas"}.` : "";
+  desenharRoda(); renderBaixas();
+}
+function renderBaixas(){
+  const r=rodaDados(), ult=r.registros[r.registros.length-1];
+  if(!ult){ $("#rodaBaixas").innerHTML=""; return; }
+  const baixas=r.areas.filter(a=>ult.notas[a]!=null && ult.notas[a]<=4);
+  $("#rodaBaixas").innerHTML = baixas.length ? `<p class="titulo-sec">Áreas que pedem atenção</p>` + baixas.map(a=>`<div class="roda-baixa"><span>${esc(a)} · ${ult.notas[a]}</span><button class="btn sec peq" type="button" data-meta-area="${esc(a)}">Criar meta</button></div>`).join("") : "";
+  document.querySelectorAll("[data-meta-area]").forEach(b=>b.addEventListener("click",()=>{ $("#novaMeta").value=b.dataset.metaArea+": "; $("#novaMeta").scrollIntoView({behavior:"smooth",block:"center"}); setTimeout(()=>$("#novaMeta").focus(),300); }));
+}
+$("#rodaHist").addEventListener("change",desenharRoda);
+$("#editarAreas").addEventListener("click",()=>{ editandoAreas=!editandoAreas; renderRoda(); if(editandoAreas) setTimeout(()=>$("#novaArea").focus(),50); });
+$("#formArea").addEventListener("submit",e=>{ e.preventDefault(); const t=$("#novaArea").value.trim(), r=rodaDados(); if(!t) return; if(r.areas.some(a=>a.toLowerCase()===t.toLowerCase())){ toast("Essa área já está na roda"); return; } if(r.areas.length>=12){ toast("A roda aceita até 12 áreas"); return; } r.areas.push(t); rodaAtual[t]=5; $("#novaArea").value=""; salvar(); renderRoda(); });
+$("#salvarRoda").addEventListener("click",()=>{
+  const r=rodaDados(), notas={}; r.areas.forEach(a=>notas[a]=rodaAtual[a]);
+  const ult=r.registros[r.registros.length-1];
+  if(ult && ult.em===hoje()) ult.notas=notas; else r.registros.push({em:hoje(), notas});
+  salvar(); renderRoda(); toast("Sua roda foi salva ✦");
+});
+
+function renderTudo(){ renderRoda(); renderBloco(); $("#avisoDemo").hidden = !D.demo; renderCarinhas(); renderGrafico(); renderNotas(); renderMetas(); renderCasal(); mostrarAbaCasal(); }
 renderTudo(); linkLembrete();
 mostrarPasso("passoCarregando");
 </script>
